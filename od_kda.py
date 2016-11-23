@@ -41,7 +41,7 @@ def analyzeMatch(match):
         if match["player_slot"] > 64 and match["radiant_win"]:
             parseMatchData(match,masterList[3][legVector])
     else:
-        print "Discarding an insignificant match"
+        print "Discarding an insignificant match", match['match_id']
 
 def getTotalMatches():
     m = 0
