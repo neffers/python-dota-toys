@@ -141,7 +141,7 @@ def buildList():
             masterHeroList[herodata['HeroID']] = {}
             masterHeroList[herodata['HeroID']]['names'] = [herodata['url']]
             if "_" in herodata['url']:
-                masterHeroList[herodata['HeroID']]['names'].append(herodata['url'].replace('_',' '))
+                masterHeroList[herodata['HeroID']]['names'][0] = herodata['url'].replace('_',' ')
             try:
                 masterHeroList[herodata['HeroID']]['names'].append(herodata['NameAliases'])
             except KeyError:
@@ -168,6 +168,11 @@ def parseHeroName(heroInput):
         for name in masterHeroList[hero]['names']:
             if re.search(heroInput,name,re.I):
                 return int(hero)
+
+def translateHeroID(heroIDInput):
+    if not masterHeroList:
+        buildList()
+    return masterHeroList[str(heroIDInput)]['names'][0]
 
 def getHeroes():
     #return the list of heroes
