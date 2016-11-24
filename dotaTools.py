@@ -169,3 +169,8 @@ def parseHeroName(heroInput):
             if re.search(heroInput,name,re.I):
                 return int(hero)
 
+def getHeroes():
+    #return the list of heroes
+    if not masterHeroList:
+        buildList()
+    return masterHeroList
