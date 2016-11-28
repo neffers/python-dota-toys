@@ -40,6 +40,7 @@ def getWinratesWithDeltas(account,againstHeroID,radiant=None):
 
 def avgDeltas(winrates1,winrates2,multiplierForWinrates1=1):
     #modifies the winrates1 dict to average winrateDelta of both passed dicts
+    print "averaging deltas for new hero and "+str(multiplierForWinrates1)+" old heroes"
     for hero in winrates1:
         winrates1[hero]['winrateDelta'] = (winrates1[hero]['winrateDelta'] * multiplierForWinrates1 + winrates2[hero]['winrateDelta'])/(multiplierForWinrates1+1)
 
