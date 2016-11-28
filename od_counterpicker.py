@@ -31,8 +31,8 @@ def printTopHeroes(winrates,sortKey='winrate',numHeroes=3):
     winratesCopy = winrates
     for num in range(numHeroes):
         hero = getNextTopWinrate(winratesCopy,sortKey)
-        if not hero[sortKey] == None:
-            print "#"+str(num+1)+": "+dotaTools.translateHeroID(hero['id'])
+        if not hero[sortKey] == None and hero[sortKey] > 0:
+            print "#"+str(num+1)+": "+dotaTools.translateHeroID(hero['id']),hero[sortKey]
 
 def getWinratesDelta(account,againstHeroID,radiant=None):
     generalWinrates = getWinrates(account,None,radiant)
@@ -59,6 +59,10 @@ def avgWinrateDeltas(winrate1,winrate2,iterationsOfWinrate1=0):
             averagedWinrates[heroID]['weightedWinrate'] = (winrate1[heroID]['weightedWinrate']*(iterationsOfWinrate1+1) + winrate2[heroID]['weightedWinrate']) / (iterationsOfWinrate1+2)
         except TypeError:
             averagedWinrates[heroID]['weightedWinrate'] = None
+        try:
+            averagedWinrates[heroID]['winrateDelta'] = (winrate1[heroID]['winrateDelta']*(iterationsOfWinrate1+1) + winrate2[heroID]['winrateDelta']) / (iterationsOfWinrate1+2)
+        except TypeError:
+            averagedWinrates[heroID]['winrateDelta'] = None
     return averagedWinrates
 
 def getFiveHeroes():
@@ -81,6 +85,6 @@ def getFiveHeroes():
             aggregateWinrates = avgWinrateDeltas(aggregateWinrates,getWinratesDelta(account32,heroes[-1],side),heronum)
         else:
             aggregateWinrates = getWinratesDelta(account32,heroes[0],side)
-        printTopHeroes(aggregateWinrates,'weightedWinrate',10)
+        printTopHeroes(aggregateWinrates,'winrateDelta',10)
 
 getFiveHeroes()
