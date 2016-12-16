@@ -73,6 +73,8 @@ def getUserInput32withShortcuts():
         return 221666230
     elif i == 'ashley':
         return 104264418
+    elif i == 'smurf':
+        return 31194558
     else:
         return getUserInput32(i)
 
